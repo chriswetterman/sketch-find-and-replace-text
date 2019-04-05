@@ -1,0 +1,38 @@
+{
+  "name": "find-and-replace-text",
+  "version": "0.1.0",
+  "engines": {
+    "sketch": ">=3.0"
+  },
+  "skpm": {
+    "name": "find-and-replace-text",
+    "manifest": "src/manifest.json",
+    "main": "find-and-replace-text.sketchplugin",
+    "assets": [
+      "assets/**/*.otf"
+    ]
+  },
+  "scripts": {
+    "build": "skpm-build",
+    "watch": "skpm-build --watch",
+    "start": "skpm-build --watch",
+    "postinstall": "npm run build && skpm-link"
+  },
+  "devDependencies": {
+    "@skpm/builder": "^0.5.16",
+    "@skpm/extract-loader": "^2.0.2",
+    "css-loader": "^1.0.0",
+    "html-loader": "^0.5.1"
+  },
+  "resources": [
+    "resources/**/*.js"
+  ],
+  "dependencies": {
+    "sketch-module-web-view": "^3.0.1"
+  },
+  "author": "Chris Wetterman <chris.wetterman.web@me.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chriswetterman/sketch-find-and-replace-text.git"
+  }
+}

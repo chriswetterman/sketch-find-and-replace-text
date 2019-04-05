@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="15px" viewBox="0 0 16 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>ArtboardIcon</title>
+    <desc>Created with Sketch.</desc>
+    <g id="ArtboardIcon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle" stroke="#444444" fill="#FFFFFF" x="1.5" y="1.5" width="13" height="9" rx="1"></rect>
+        <path d="M0.5,10.5 L15.5,10.5" id="Line" stroke="#444444" stroke-linecap="square"></path>
+        <path d="M8,0.5 L8,1.5" id="Line-2" stroke="#444444" stroke-linecap="square"></path>
+        <g id="Group" transform="translate(3.000000, 11.000000)" stroke="#444444" stroke-linecap="square">
+            <path d="M0.9,2.88328157 L2.34164079,0" id="Line-3"></path>
+            <path d="M8.5,2.86656315 L9.84164079,0.183281573" id="Line-3" transform="translate(9.170820, 1.524922) scale(-1, 1) translate(-9.170820, -1.524922) "></path>
+            <path d="M1.67082039,1.68328157 L8.67082039,1.68328157" id="Line-4"></path>
+        </g>
+    </g>
+</svg>

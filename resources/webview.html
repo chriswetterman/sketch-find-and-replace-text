@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Find and Replace Text</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="header">
+    <img src="../assets/appIcon.png" width="30" height="30" />
+    <div class="title">
+      <span>Find and Replace Text</span>
+      <p>Replace text throughout your selected layers, selected artboards, pages or document.</p>
+    </div>
+  </div>
+  <div class="container content">
+    <div class='row'>
+      <div class='col-1 field-label'>Find:
+      </div>
+      <div class='col'>
+        <input id='input_find' type="text" />
+      </div>
+    </div>
+    <div class='row-x2'>
+      <div class='col-1 field-label'>
+        Replace with:
+      </div>
+      <div class='col'>
+        <input id='input_replace' type="text" />
+      </div>
+    </div>
+
+    <div class='row'>
+      <div class='col-9'>Scope:</div>
+    </div>
+
+    <div class='row'>
+      <div class='col-9'>
+        <a id="scope_document" class="btn-iconified active" href="#"><img src="../assets/appIconDark.png" width="22px" height="22px">Document</a> <a id="scope_page" class="btn-iconified" href="#"><img src="../assets/pageIcon.svg" width="16px" height="22px">Page</a> <a id="scope_artboard" class="btn-iconified" href="#"><img src="../assets/artboardIcon.svg" width="23px" height="22px">Artboard</a> <a id="scope_layer" class="btn-iconified" href="#"><img src="../assets/layersIcon.svg" width="22px" height="22px">Layer</a>
+        <div id="msg" class='mrg-t'></div>
+      </div>
+      <div class='col-3'>
+        <a id="action_find_next" class="btn-plain mrg-b" href="#">Find Next</a> <a id="action_replace" class="btn-plain mrg-b" href="#">Replace</a> <a id="action_replace_all" class="btn-plain mrg-b" href="#">Replace All</a> <a id="action_cancel" class="btn-plain" href="#">Close</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- notice the "../" here. It's because webview.js will be compiled in a different folder -->
+  <script src="../webview.js"></script>
+</body>
+</html>

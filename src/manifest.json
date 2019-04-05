@@ -1,0 +1,33 @@
+{
+  "name": "Find and Replace Text",
+  "description": "Find and replace text throughout your Sketch document",
+  "author": "Chris Wetterman",
+  "authorEmail": "chris.wetterman.web@me.com",
+  "homepage": "https://github.com/chriswetterman/sketch-find-and-replace-text",
+  "identifier": "com.chriswetterman.sketch.find-and-replace-text-plugin",
+  "compatibleVersion": 53,
+  "bundleVersion": 1,
+  "commands": [
+    {
+      "name": "🕵🏻‍ Find and Replace Text",
+      "identifier": "find-and-replace-text-identifier",
+      "script": "./find-and-replace-text-command.js",
+      "shortcut": "cmd shift f",
+      "handlers" : {
+        "actions": {
+          "SelectionChanged.finish": "onSelectionChanged",
+          "TextChanged.finish": "onTextChanged"
+        },
+        "run": "onRun"
+      }
+    }
+  ],
+  "menu": {
+    "title": "find-and-replace-text",
+    "items": [
+      "find-and-replace-text-identifier"
+    ],
+    "isRoot": true
+  },
+  "icon": "_webpack_resources/b14f992b2db03fe6f3b2908bfc51b6cd.png"
+}
