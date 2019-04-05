@@ -11,16 +11,15 @@ const supportedNestedObjectTypes = [
     String(sketch.Types.SymbolInstance),
 ]
 
-// TODO: Check out symbol overrides in side-panel
 let dirty = true
 
 export default {
     /**
-     *
+     * Marks scan state as dirty
      */
     markDirty: () => { dirty = true },
     /**
-     *
+     * Returns the dirty state
      */
     isDirty: () => dirty,
 
@@ -32,17 +31,17 @@ export default {
      */
     findTextLayers: function(element, term) {
         function overAndOverAgain (element, term) {
-        if (!term || term.length === 0) return []
-        if (!element) return []
-        dirty = false
+            if (!term || term.length === 0) return []
+            if (!element) return []
+            dirty = false
 
-        const type = element.type
-        if (type === String(sketch.Types.Text)) {
-            const re = new RegExp(term, 'i')
-            if (element.text.match(re)) {
-                return [new Layer(element)]
+            const type = element.type
+            if (type === String(sketch.Types.Text)) {
+                const re = new RegExp(term, 'i')
+                if (element.text.match(re)) {
+                    return [new Layer(element)]
+                }
             }
-        }
             else if (type === String(sketch.Types.SymbolInstance)) {
                 // Iterate through overrides
                 return element.overrides.reduce((accum, next) => {
@@ -55,14 +54,14 @@ export default {
                     return accum
                 },[])
             }
-        // White-list of known types with layers for eaze of compatibility reasons
-        else if (supportedNestedObjectTypes.includes(type)) {
-            const data = element.pages || element.layers
-            return data.reduce((accum, datum) => {
-                const r = overAndOverAgain(datum, term)
-                return [...accum, ...r]
-            }, [])
-        }
+            // White-list of known types with layers for eaze of compatibility reasons
+            else if (supportedNestedObjectTypes.includes(type)) {
+                const data = element.pages || element.layers
+                return data.reduce((accum, datum) => {
+                    const r = overAndOverAgain(datum, term)
+                    return [...accum, ...r]
+                }, [])
+            }
             // Collection of selected layers
             else if (element.reduce) {
                 return element.reduce((accum, datum) => {
@@ -71,8 +70,8 @@ export default {
                 }, [])
             }
 
-        return []
-    }
+            return []
+        }
 
         const results = overAndOverAgain(element, term)
         // If multiple layers were selected we could have dupes

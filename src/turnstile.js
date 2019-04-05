@@ -36,7 +36,6 @@ export default class Turnstile {
             this._layers.push(l)
             return l.raw
         }
-        console.log('Cycle to next layer is null')
         return null
     }
 
@@ -103,8 +102,3 @@ export class Override {
         return this._override.affectedLayer
     }
 }
-
-// Pass in elements then return a module to iterate through
-// Need to have elements and the search text (not replace as user could change that mid-stream)
-// If there is new text during the next request, we need to re-find all elements and instantiate a new turnstile
-
