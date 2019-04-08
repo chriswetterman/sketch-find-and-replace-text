@@ -23,7 +23,7 @@
     }
   ],
   "menu": {
-    "title": "find-and-replace-text",
+    "title": "Find and Replace Text",
     "items": [
       "find-and-replace-text-identifier"
     ],
