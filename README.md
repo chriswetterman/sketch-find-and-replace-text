@@ -1,5 +1,5 @@
 
-# Find and Replace Text plugin for Sketch
+# 🕵🏻‍ Find and Replace Text plugin for Sketch
 
 ![Screenshot](assets/screenshot.png)
 
@@ -7,7 +7,7 @@ Find and Replace Text for Sketch allows you to search throughout your active doc
 
 ## Installation
 
-Download the [latest release](https://github.com/chriswetterman/sketch-find-and-replace-text/releases/latest/download/find-and-replace-text.sketchplugin.zip), unzip then double-click to install.
+Download the [latest release](https://github.com/chriswetterman/sketch-find-and-replace-text/releases/latest/download/find-and-replace-text.sketchplugin.zip), unzip then double-click `find-and-replace-text.sketchplugin` to install.
 
 ## Usage
 
