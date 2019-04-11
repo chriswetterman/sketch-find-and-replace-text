@@ -85,6 +85,9 @@ export default function() {
     width: 420,
     height: 336,
     show: false,
+    alwaysOnTop: true,
+    maximizable: false,
+    fullscreenable: false,
   }
 
   var browserWindow = new BrowserWindow(options)
