@@ -21,6 +21,7 @@
   "devDependencies": {
     "@skpm/builder": "^0.5.16",
     "@skpm/extract-loader": "^2.0.2",
+    "copy-webpack-plugin": "^5.0.2",
     "css-loader": "^1.0.0",
     "html-loader": "^0.5.1"
   },

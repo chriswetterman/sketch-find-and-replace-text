@@ -10,10 +10,12 @@ document.getElementById('scope_artboard').addEventListener('click', function() {
 document.getElementById('scope_page').addEventListener('click', function() { ifEnabled(this, () => window.postMessage(Events.kEventScopeChange, Events.kScopeChangeTypePage)) })
 document.getElementById('scope_document').addEventListener('click', function() { ifEnabled(this, () => window.postMessage(Events.kEventScopeChange, Events.kScopeChangeTypeDocument)) })
 
-document.getElementById('action_replace').addEventListener('click', () => window.postMessage(Events.kEventButtonPress, Events.kButtonPressReplace, getFindText(), getReplaceText()))
-document.getElementById('action_find_next').addEventListener('click', () => window.postMessage(Events.kEventButtonPress, Events.kButtonPressFindNext, getFindText(), getReplaceText()))
-document.getElementById('action_replace_all').addEventListener('click', () => window.postMessage(Events.kEventButtonPress, Events.kButtonPressReplaceAll, getFindText(), getReplaceText()))
+document.getElementById('action_replace').addEventListener('click', function() { ifEnabled(this, () => window.postMessage(Events.kEventButtonPress, Events.kButtonPressReplace, getFindText(), getReplaceText())) })
+document.getElementById('action_find_next').addEventListener('click', function() { ifEnabled(this, () => window.postMessage(Events.kEventButtonPress, Events.kButtonPressFindNext, getFindText(), getReplaceText())) })
+document.getElementById('action_replace_all').addEventListener('click', function() { ifEnabled(this, () => window.postMessage(Events.kEventButtonPress, Events.kButtonPressReplaceAll, getFindText(), getReplaceText())) })
 document.getElementById('action_cancel').addEventListener('click', () => window.postMessage(Events.kEventButtonPress, Events.kButtonPressCancel))
+
+document.getElementById('input_find').addEventListener('keyup', function() { setActionButtonsState(this.value) } )
 
 function getFindText() {
     return document.getElementById('input_find').value
@@ -21,6 +23,30 @@ function getFindText() {
 
 function getReplaceText() {
     return document.getElementById('input_replace').value
+}
+
+/**
+ * Based on the presense of text or not, manages the enabled/disabled state of the action buttons
+ * @param {string} text Current value of find input
+ */
+function setActionButtonsState(text) {
+  // Take classnames, filter out disabled then set accordingly to state
+  var spliter = (classNames, active) => {
+    var style = classNames.split(' ').filter(cls => cls !== 'disabled').join(' ')
+    if (!active) {
+      style += ' disabled'
+    }
+    return style
+  }
+  // Based on the current styles and active state, updates the attribute
+  var updateStyles = (el, state) => {
+    el.setAttribute('class', spliter(el.getAttribute('class'), state))
+  }
+
+  var active =  text && text.length > 0
+  updateStyles(document.getElementById('action_find_next'), active)
+  updateStyles(document.getElementById('action_replace'), active)
+  updateStyles(document.getElementById('action_replace_all'), active)
 }
 
 /**
@@ -36,7 +62,7 @@ function ifEnabled(el, fn) {
   }
 }
 
-window.onTextChanged = function() {
+window.onLayerTextChanged = function() {
   window.postMessage(Events.kEventTextChanged)
 }
 

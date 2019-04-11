@@ -8,7 +8,6 @@ import * as Events from './events';
 import manifest from './manifest.json';
 import scanner from './scanner';
 import Turnstile from './turnstile';
-require('../resources/icon.png')
 
 const WEBVIEW_ID = manifest.identifier
 const ARTBOARD_LIKE = [String(sketch.Types.Artboard), String(sketch.Types.SymbolMaster)]
@@ -74,7 +73,7 @@ export function onTextChanged(context) {
   if (isWebviewPresent(WEBVIEW_ID)) {
     // Only if the contents have changed send the notification
     if (context.actionContext.new !== context.actionContext.old) {
-      sendToWebview(WEBVIEW_ID, 'onTextChanged()')
+      sendToWebview(WEBVIEW_ID, 'onLayerTextChanged()')
     }
   }
 }
@@ -190,5 +189,5 @@ export default function() {
     }
   })
 
-  browserWindow.loadURL(require('../resources/webview.html'))
+  browserWindow.loadURL(require('../resources/webview.html') + `?theme=${UI.getTheme()}`)
 }
