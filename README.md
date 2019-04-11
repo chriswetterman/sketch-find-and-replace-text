@@ -1,7 +1,7 @@
 
 # 🕵🏻‍ Find and Replace Text plugin for Sketch
 
-<img src="assets/screenshot.png" max-width="532px" max-height="448px" />
+<img src="assets/screenshot.png" width="532" height="448" />
 
 Find and Replace Text for Sketch allows you to search throughout your active document and replace text (symbol overrides included). Searches can be scoped at the following levels based on your current layer selection: Document, Page, Artboard, Layer
 
