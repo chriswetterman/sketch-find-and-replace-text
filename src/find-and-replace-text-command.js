@@ -13,6 +13,43 @@ const WEBVIEW_ID = manifest.identifier
 const ARTBOARD_LIKE = [String(sketch.Types.Artboard), String(sketch.Types.SymbolMaster)]
 
 /**
+ * Based on the current layer selection determines which scopes should be active
+ * @param {array} selectedLayers
+ */
+function determineActiveScopes(selectedLayers) {
+  // If selection is empty (default), then just document & page are active
+  let scopes = [Events.kScopeChangeTypeDocument, Events.kScopeChangeTypePage]
+  if (selectedLayers.length > 0) {
+    scopes.push(Events.kScopeChangeTypeLayer)
+
+    const artboards = selectedLayers.map(layer => {
+      return ARTBOARD_LIKE.includes(layer.type) ? layer : layer.getParentArtboard()
+    })
+    const hasUndef = artboards.some(board => board === undefined)
+    if (!hasUndef) {
+      // We have just artboards. See if there's only one
+      const uniqueBoards = artboards.reduce((accum, next) => {
+        const has = accum.findIndex(board => board.id === next.id) !== -1
+          if (!has) {
+              accum.push(next)
+          }
+          return accum
+      },[])
+
+      // We have some artboards, either one or equal # boards as selected layers
+      if (uniqueBoards.length === 1 || uniqueBoards.length === selectedLayers.length) {
+        scopes.push(Events.kScopeChangeTypeArtboard)
+        // If only 1 layer is selected
+        if (ARTBOARD_LIKE.includes(selectedLayers[0].type)) {
+          scopes = scopes.filter(b => b !== Events.kScopeChangeTypeLayer)
+        }
+      }
+    }
+  }
+  return scopes
+}
+
+/**
  * Triggered whenever the user changes which layers are selected in a document
  *
  * The action context for this action contains three keys:
@@ -25,36 +62,7 @@ export function onSelectionChanged(context) {
   if (isWebviewPresent(WEBVIEW_ID)) {
     const doc = sketch.fromNative(context.actionContext.document)
     const selectedLayers = toArray(context.actionContext.newSelection).map(native => sketch.fromNative(native))
-
-    // If selection is empty (default), then just document & page are active
-    let scopes = [Events.kScopeChangeTypeDocument, Events.kScopeChangeTypePage]
-    if (selectedLayers.length > 0) {
-      scopes.push(Events.kScopeChangeTypeLayer)
-
-      const artboards = selectedLayers.map(layer => {
-        return ARTBOARD_LIKE.includes(layer.type) ? layer : layer.getParentArtboard()
-      })
-      const hasUndef = artboards.some(board => board === undefined)
-      if (!hasUndef) {
-        // We have just artboards. See if there's only one
-        const uniqueBoards = artboards.reduce((accum, next) => {
-          const has = accum.findIndex(board => board.id === next.id) !== -1
-            if (!has) {
-                accum.push(next)
-            }
-            return accum
-        },[])
-
-        // We have some artboards, either one or equal # boards as selected layers
-        if (uniqueBoards.length === 1 || uniqueBoards.length === selectedLayers.length) { // && uniqueBoards[0].type !== String(sketch.Types.Artboard)) {
-          scopes.push(Events.kScopeChangeTypeArtboard)
-          // If only 1 layer is selected
-          if (ARTBOARD_LIKE.includes(selectedLayers[0].type)) {
-            scopes = scopes.filter(b => b !== Events.kScopeChangeTypeLayer)
-          }
-        }
-      }
-    }
+    const scopes = determineActiveScopes(selectedLayers)
 
     sendToWebview(WEBVIEW_ID, `setActiveScopes("${scopes.join(',')}")`)
   }
@@ -92,6 +100,10 @@ export default function() {
   var browserWindow = new BrowserWindow(options)
   // only show the window when the page has loaded
   browserWindow.once('ready-to-show', () => {
+    const doc = Document.getSelectedDocument()
+    const scopes = determineActiveScopes(doc.selectedLayers.layers)
+    sendToWebview(WEBVIEW_ID, `setActiveScopes("${scopes.join(',')}")`)
+
     browserWindow.show()
   })
 
