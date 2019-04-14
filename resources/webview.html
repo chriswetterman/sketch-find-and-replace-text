@@ -3,7 +3,22 @@
 <head>
   <meta charset="utf-8">
   <title>Find and Replace Text</title>
-  <link rel="stylesheet" href="./style.css">
+  <link rel='stylesheet' type='text/css' href='./styles.default.css' />
+  <script>
+    // UI.Theme support
+    var pathToTheme = '../styles.light.css'
+    if (window.location.search.includes('theme=')) {
+      var theme = window.location.search.split('=')[1]
+      if (theme.toLowerCase() === 'dark') {
+        pathToTheme = '../styles.dark.css'
+      }
+    }
+    var style = document.createElement('link')
+    style.rel = 'stylesheet'
+    style.type = 'text/css'
+    style.href = pathToTheme
+    document.head.appendChild(style)
+  </script>
 </head>
 <body>
   <div class="header">
@@ -31,7 +46,7 @@
     </div>
 
     <div class='row'>
-      <div class='col-9'>Scope:</div>
+      <div class='col-9 field-label align-left'>Scope:</div>
     </div>
 
     <div class='row'>
@@ -40,7 +55,7 @@
         <div id="msg" class='mrg-t'></div>
       </div>
       <div class='col-3'>
-        <a id="action_find_next" class="btn-plain mrg-b" href="#">Find Next</a> <a id="action_replace" class="btn-plain mrg-b" href="#">Replace</a> <a id="action_replace_all" class="btn-plain mrg-b" href="#">Replace All</a> <a id="action_cancel" class="btn-plain" href="#">Close</a>
+        <a id="action_find_next" class="btn-plain mrg-b disabled" href="#">Find Next</a> <a id="action_replace" class="btn-plain mrg-b disabled" href="#">Replace</a> <a id="action_replace_all" class="btn-plain mrg-b disabled" href="#">Replace All</a> <a id="action_cancel" class="btn-plain" href="#">Close</a>
       </div>
     </div>
   </div>

@@ -24,14 +24,19 @@ html {
 
 body {
   font-family: 'Helvetica Neue', system-ui;
-  color: #444;
   font-size: 14px;
+}
+
+p {
+  line-height: 1.35em;
 }
 
 input {
   width: 75%;
   font-size: 0.875rem;
   margin-left: 1rem;
+  padding-left: 4px;
+  padding-right: 4px;
 }
 
 input, textarea {
@@ -39,28 +44,39 @@ input, textarea {
   user-select: auto;
 }
 
+input:focus {
+  outline: #3277E3;
+}
+
+a:active {
+  background-clip: #3277E3;
+}
+
 img {
   vertical-align: top;
 }
 
 .header {
-  background-image: linear-gradient(-180deg, #F6F6F6 0%, #F5F6F6 100%);
-  padding: 16px 20px;
+  padding: 12px 20px;
+}
+
+.header > img {
+  margin-top: 4px;
 }
 
 .title {
   display: inline-block;
   margin-left: 0.6875rem;
   width: 330px;
-  font-size: 13px;
+  font-size: 0.875em;
 }
 
 .title span {
   font-weight: 700;
+  line-height: 1.6em;
 }
 
 .content {
-  background-image: linear-gradient(-180deg, #F0F0F0 0%, #EEF0EF 100%);
   padding: 16px 20px;
 }
 
@@ -102,26 +118,30 @@ img {
 .field-label {
   top: 2px;
   text-align: right;
+  font-size: 0.9em;
+}
+
+.align-left {
+  text-align: left;
 }
 
 .btn-plain {
   display: block;
-  background-image: linear-gradient(-180deg, #E2E2E2 0%, #DCDCDC 99%);
-  border: 1px solid #B3B3B3;
-  border-radius: 6px;
+  border-radius: 4px;
   width: 81px;
   text-align: center;
   height: 24px;
   text-decoration: none;
   padding-top: 4px;
-  color: #444;
   font-size: 13px;
+}
+
+btn-plain.disabled {
+  cursor: default;
 }
 
 .btn-iconified {
   display: inline-block;
-  background: #F4F4F4;
-  border: 1px solid #979797;
   border-radius: 6px;
   width: 57px;
   height: 60px;
@@ -129,14 +149,11 @@ img {
   text-align: center;
   text-decoration: none;
   padding-top: 2px;
-  color: #222;
   margin-right: 4px;
 }
 
 .disabled {
   cursor: default;
-  border: 1px solid #c0c0c0;
-  color: #c0c0c0;
 }
 
 .disabled > img {
@@ -146,11 +163,6 @@ img {
 .btn-iconified > img {
   display: block;
   margin: 6px auto;
-}
-
-.btn-iconified.active {
-  border: 1px #FB9F27 solid;
-  background: rgba(255, 201, 67, 0.7);
 }
 
 .mrg-b {
@@ -177,5 +189,4 @@ img {
   padding-left: 20px;
   flex: 0 0 75%;
   max-width: 75%;
-
 }
