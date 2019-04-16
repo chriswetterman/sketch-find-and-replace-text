@@ -62,6 +62,21 @@ function ifEnabled(el, fn) {
   }
 }
 
+/**
+ * Sets the theme
+ */
+window.useTheme = function(theme) {
+  var pathToTheme = '../styles.light.css'
+  if (theme.toLowerCase() === 'dark') {
+    pathToTheme = '../styles.dark.css'
+  }
+  var style = document.createElement('link')
+  style.rel = 'stylesheet'
+  style.type = 'text/css'
+  style.href = pathToTheme
+  document.head.appendChild(style)
+}
+
 window.onLayerTextChanged = function() {
   window.postMessage(Events.kEventTextChanged)
 }
