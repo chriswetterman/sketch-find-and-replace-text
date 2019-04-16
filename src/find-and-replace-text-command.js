@@ -100,11 +100,14 @@ export default function() {
   var browserWindow = new BrowserWindow(options)
   // only show the window when the page has loaded
   browserWindow.once('ready-to-show', () => {
+    sendToWebview(WEBVIEW_ID, `useTheme("${UI.getTheme()}")`)
+
     const doc = Document.getSelectedDocument()
     const scopes = determineActiveScopes(doc.selectedLayers.layers)
     sendToWebview(WEBVIEW_ID, `setActiveScopes("${scopes.join(',')}")`)
 
-    browserWindow.show()
+    // Give a brief amount of time for styles to be applied in an effort to elminiate flickering
+    setTimeout(() => browserWindow.show(), 100)
   })
 
   const webContents = browserWindow.webContents
@@ -201,5 +204,5 @@ export default function() {
     }
   })
 
-  browserWindow.loadURL(require('../resources/webview.html') + `?theme=${UI.getTheme()}`)
+  browserWindow.loadURL(require('../resources/webview.html'))
 }
