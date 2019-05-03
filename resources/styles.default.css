@@ -1,5 +1,12 @@
 /* some default styles to make the view more native like */
 
+@font-face {
+  font-family: 'FNR';
+  src: url('../assets/FNR.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 html {
   box-sizing: border-box;
   background: transparent;
@@ -39,6 +46,10 @@ input {
   padding-right: 4px;
 }
 
+input.find {
+  padding-right: 3.5em;
+}
+
 input, textarea {
   -webkit-user-select: auto;
   user-select: auto;
@@ -54,6 +65,38 @@ a:active {
 
 img {
   vertical-align: top;
+}
+
+
+
+.icon-caseSensitive {
+  font-family: 'FNR';
+  display: inline-block;
+  margin-left: -4.15em;
+  margin-right: -0.1em;
+  font-size: 0.875em;
+  padding: 1px;
+  border: 1px solid #000;
+  cursor: pointer;
+  top: -1px;
+}
+
+.icon-wholeWord {
+  font-family: 'FNR';
+  display: inline-block;
+  font-size: 0.875em;
+  cursor: pointer;
+  padding: 1px;
+  border: 1px solid #000;
+  top: -1px;
+}
+
+.icon-wholeWord:before {
+  content: "\e900";
+}
+
+.icon-caseSensitive:before {
+  content: "\e901";
 }
 
 .header {
