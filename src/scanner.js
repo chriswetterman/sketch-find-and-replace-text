@@ -28,8 +28,13 @@ export default {
      * of text layers matching term
      * @param {object} element
      * @param {string} term
+     * @param {object} options
      */
-    findTextLayers: function(element, term) {
+    findTextLayers: function(element, term, options) {
+
+        const exp = options.isWholeWord ? `\\b${term}\\b` : term
+        const re = new RegExp(exp, options.isCaseSensitive ? '' : 'i')
+
         function overAndOverAgain (element, term) {
             if (!term || term.length === 0) return []
             if (!element) return []
@@ -37,7 +42,6 @@ export default {
 
             const type = element.type
             if (type === String(sketch.Types.Text)) {
-                const re = new RegExp(term, 'i')
                 if (element.text.match(re)) {
                     return [new Layer(element)]
                 }
@@ -46,7 +50,6 @@ export default {
                 // Iterate through overrides
                 return element.overrides.reduce((accum, next) => {
                     if (next.editable && !next.isDefault && typeof next.value === 'string') {
-                        const re = new RegExp(term, 'i')
                         if (next.value.match(re)) {
                             accum.push(new Override(next))
                         }
