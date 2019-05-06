@@ -55,3 +55,13 @@ input {
   background: rgba(255, 201, 67, 0.98);
   color: #222;
 }
+
+.icon-caseSensitive, .icon-wholeWord {
+  border: 1px solid #4d4c50;
+  color: #999;
+}
+
+.icon-caseSensitive.active, .icon-wholeWord.active {
+  border: 1px solid #ffc943;
+  color: #DDD;
+}

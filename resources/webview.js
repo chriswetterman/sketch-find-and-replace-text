@@ -10,12 +10,15 @@ document.getElementById('scope_artboard').addEventListener('click', function() {
 document.getElementById('scope_page').addEventListener('click', function() { ifEnabled(this, () => window.postMessage(Events.kEventScopeChange, Events.kScopeChangeTypePage)) })
 document.getElementById('scope_document').addEventListener('click', function() { ifEnabled(this, () => window.postMessage(Events.kEventScopeChange, Events.kScopeChangeTypeDocument)) })
 
-document.getElementById('action_replace').addEventListener('click', function() { ifEnabled(this, () => window.postMessage(Events.kEventButtonPress, Events.kButtonPressReplace, getFindText(), getReplaceText())) })
-document.getElementById('action_find_next').addEventListener('click', function() { ifEnabled(this, () => window.postMessage(Events.kEventButtonPress, Events.kButtonPressFindNext, getFindText(), getReplaceText())) })
-document.getElementById('action_replace_all').addEventListener('click', function() { ifEnabled(this, () => window.postMessage(Events.kEventButtonPress, Events.kButtonPressReplaceAll, getFindText(), getReplaceText())) })
+document.getElementById('action_replace').addEventListener('click', function() { notifyActionRequested(this, Events.kButtonPressReplace) })
+document.getElementById('action_find_next').addEventListener('click', function() { notifyActionRequested(this, Events.kButtonPressFindNext) })
+document.getElementById('action_replace_all').addEventListener('click', function() { notifyActionRequested(this, Events.kButtonPressReplaceAll) })
 document.getElementById('action_cancel').addEventListener('click', () => window.postMessage(Events.kEventButtonPress, Events.kButtonPressCancel))
 
 document.getElementById('input_find').addEventListener('keyup', function() { setActionButtonsState(this.value) } )
+
+document.getElementById('toggle_case').addEventListener('click', function() { toggleIndividualActiveState(this) })
+document.getElementById('toggle_word').addEventListener('click', function() { toggleIndividualActiveState(this) })
 
 function getFindText() {
     return document.getElementById('input_find').value
@@ -23,6 +26,58 @@ function getFindText() {
 
 function getReplaceText() {
     return document.getElementById('input_replace').value
+}
+
+/**
+ * Notifies the main process that an action has been requested
+ * @param {*} el The element the action took place on
+ * @param {*} event The event to fire
+ */
+function notifyActionRequested(el, event) {
+  ifEnabled(el, () =>
+    window.postMessage(
+      Events.kEventButtonPress,
+      event,
+      getFindText(),
+      getReplaceText(),
+      isActive(document.getElementById('toggle_case')),
+      isActive(document.getElementById('toggle_word')),
+    )
+  )
+}
+
+/**
+ *
+ * @param {*} el
+ */
+function isActive(el) {
+  if (typeof el === 'string') {
+    el = document.getElementById(el)
+  }
+
+  return el.getAttribute('class').includes('active')
+}
+
+/**
+ * For any element with an ID prefix of 'toggle_', searches
+ * the class names and adds or removes the 'active' style
+ * based on its presence
+ * @param {*} el
+ */
+function toggleIndividualActiveState(el) {
+  // Only process 'toggle_' elements
+  if (el.getAttribute('id').includes('toggle_')) {
+    var style = el.getAttribute('class')
+    // Remove active if present, otherwise include it
+    if (style.includes('active')) {
+      style = style.split('active').map(v => v.trim()).join(' ')
+      el.setAttribute('class', style)
+    } else {
+      el.setAttribute('class', style + ' active')
+    }
+    // Notify main process a re-scan is in order
+    window.onLayerTextChanged()
+  }
 }
 
 /**
@@ -101,7 +156,7 @@ window.setActiveScopes = function(scopes) {
 
   // See if the current active scope selection can be maintained through this selection or if it
   // needs to fall back to document (default)
-  var currentScopeKey = Object.keys(scopeMap).find(key => document.getElementById(scopeMap[key]).getAttribute('class').includes('active'))
+  var currentScopeKey = Object.keys(scopeMap).find(key => isActive(scopeMap[key]))
   var nextActiveScope = activeScopes[currentScopeKey] || scopeMap[Events.kScopeChangeTypeDocument]
   // Update button states
   var iconified = 'btn-iconified'

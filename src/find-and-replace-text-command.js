@@ -106,7 +106,7 @@ export default function() {
     const scopes = determineActiveScopes(doc.selectedLayers.layers)
     sendToWebview(WEBVIEW_ID, `setActiveScopes("${scopes.join(',')}")`)
 
-    // Give a brief amount of time for styles to be applied in an effort to elminiate flickering
+    // Give a brief amount of time for styles to be applied in an effort to eliminiate flickering
     setTimeout(() => browserWindow.show(), 100)
   })
 
@@ -137,7 +137,7 @@ export default function() {
   /**
    *
    */
-  webContents.on(Events.kEventButtonPress, (eventType, findText, replaceText) => {
+  webContents.on(Events.kEventButtonPress, (eventType, findText, replaceText, isCaseSensitive, isWholeWord) => {
     // Did they choose to cancel
     if (Events.kButtonPressCancel === eventType) {
       browserWindow.close()
@@ -180,7 +180,10 @@ export default function() {
     const sameTerm = ts.searchTerm === searchTerm
     if (!sameTerm || scanner.isDirty()) {
       try {
-        const layers = scanner.findTextLayers(searchArea, searchTerm)
+        const layers = scanner.findTextLayers(searchArea, searchTerm, {
+          isCaseSensitive,
+          isWholeWord
+        })
         UI.message(`Found ${layers.length} matching layer${layers.length === 1 ? '' : 's'}`)
         ts.setLayers(layers, searchTerm)
       } catch (e) {
