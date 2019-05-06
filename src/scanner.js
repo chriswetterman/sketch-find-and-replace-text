@@ -48,7 +48,7 @@ export default {
                     if (next.editable && !next.isDefault && typeof next.value === 'string') {
                         const re = new RegExp(term, 'i')
                         if (next.value.match(re)) {
-                            accum.push(new Override(next))
+                            accum.push(new Override(element, next))
                         }
                     }
                     return accum

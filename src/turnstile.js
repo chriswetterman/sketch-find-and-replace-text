@@ -84,7 +84,8 @@ export class Layer {
 }
 
 export class Override {
-    constructor(override) {
+    constructor(element, override) {
+        this._element = element
         this._override = override
     }
     /**
@@ -99,6 +100,6 @@ export class Override {
     }
 
     get raw() {
-        return this._override.affectedLayer
+        return this._element
     }
 }
