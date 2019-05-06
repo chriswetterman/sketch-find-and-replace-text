@@ -191,6 +191,10 @@ export default function() {
     if (eventType === Events.kButtonPressFindNext) {
       const layer = ts.cycleToNextLayer()
       if (layer) {
+        const page = layer.getParentPage()
+        if (page && page !== doc.selectedPage) {
+          doc.selectedPage = page
+        }
         doc.centerOnLayer(layer)
       } else {
         UI.message(`Text not found: ${searchTerm}`)
