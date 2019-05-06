@@ -51,7 +51,7 @@ export default {
                 return element.overrides.reduce((accum, next) => {
                     if (next.editable && !next.isDefault && typeof next.value === 'string') {
                         if (next.value.match(re)) {
-                            accum.push(new Override(next))
+                            accum.push(new Override(element, next))
                         }
                     }
                     return accum
