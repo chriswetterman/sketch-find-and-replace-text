@@ -48,3 +48,13 @@ p {
   border: 1px #FB9F27 solid;
   background: rgba(255, 201, 67, 0.98);
 }
+
+.icon-caseSensitive, .icon-wholeWord {
+  border: 1px solid #FFF;
+  color: #C2C1C1;
+}
+
+.icon-caseSensitive.active, .icon-wholeWord.active {
+  border: 1px solid #FB9F27;
+  color: #262626;
+}
