@@ -181,8 +181,7 @@ export default function() {
     if (!sameTerm || scanner.isDirty()) {
       try {
         const exp = isWholeWord ? `\\b${searchTerm}\\b` : searchTerm
-        const re = new RegExp(exp, isCaseSensitive ? '' : 'i')
-        console.log(re)
+        const re = new RegExp(exp, isCaseSensitive ? 'g' : 'gi')
         const layers = scanner.findTextLayers(searchArea, searchTerm, re, {
           isLayers
         })
