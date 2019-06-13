@@ -39,15 +39,15 @@ p {
 }
 
 input {
-  width: 75%;
+  width: 80%;
   font-size: 0.875rem;
-  margin-left: 1rem;
+  margin-left: 0.5rem;
   padding-left: 4px;
   padding-right: 4px;
 }
 
 input.find {
-  padding-right: 3.5em;
+  padding-right: 5.5em;
 }
 
 input, textarea {
@@ -72,7 +72,7 @@ img {
 .icon-caseSensitive {
   font-family: 'FNR';
   display: inline-block;
-  margin-left: -4.15em;
+  margin-left: -6.25em;
   margin-right: -0.1em;
   font-size: 0.875em;
   padding: 1px;
@@ -91,12 +91,26 @@ img {
   top: -1px;
 }
 
+.icon-layers {
+  font-family: 'FNR';
+  display: inline-block;
+  font-size: 0.875em;
+  cursor: pointer;
+  padding: 1px;
+  border: 1px solid #000;
+  top: -1px;
+}
+
 .icon-wholeWord:before {
   content: "\e900";
 }
 
 .icon-caseSensitive:before {
   content: "\e901";
+}
+
+.icon-layers:before {
+  content: "\e902";
 }
 
 .header {

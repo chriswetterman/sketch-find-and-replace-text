@@ -56,12 +56,12 @@ input {
   color: #222;
 }
 
-.icon-caseSensitive, .icon-wholeWord {
+.icon-caseSensitive, .icon-wholeWord, .icon-layers {
   border: 1px solid #4d4c50;
   color: #999;
 }
 
-.icon-caseSensitive.active, .icon-wholeWord.active {
+.icon-caseSensitive.active, .icon-wholeWord.active, .icon-layers.active {
   border: 1px solid #ffc943;
   color: #DDD;
 }

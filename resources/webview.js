@@ -19,6 +19,7 @@ document.getElementById('input_find').addEventListener('keyup', function() { set
 
 document.getElementById('toggle_case').addEventListener('click', function() { toggleIndividualActiveState(this) })
 document.getElementById('toggle_word').addEventListener('click', function() { toggleIndividualActiveState(this) })
+document.getElementById('toggle_layer').addEventListener('click', function() { toggleIndividualActiveState(this) })
 
 function getFindText() {
     return document.getElementById('input_find').value
@@ -42,6 +43,7 @@ function notifyActionRequested(el, event) {
       getReplaceText(),
       isActive(document.getElementById('toggle_case')),
       isActive(document.getElementById('toggle_word')),
+      isActive(document.getElementById('toggle_layer')),
     )
   )
 }
