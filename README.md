@@ -3,7 +3,7 @@
 
 <img src="assets/screenshot.png" width="532" height="auto" />
 
-Find and Replace Text for Sketch allows you to search throughout your active document and replace text (symbol overrides included). Searches can be scoped at the following levels based on your current layer selection: Document, Page, Artboard, Layer
+Find and Replace Text for Sketch allows you to search throughout your active document and replace text within canvas elements (symbol overrides included). You can also choose to perform a rename on just the layer names as well. Searches can be scoped at the following levels based on your current layer list selection: Document, Page, Artboard, Layer
 
 ## Installation
 
