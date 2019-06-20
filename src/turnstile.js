@@ -5,6 +5,7 @@ export default class Turnstile {
     constructor() {
         this._layers = []
         this._searchTerm = null
+        this._re = new RegExp()
     }
 
     /**
@@ -19,12 +20,14 @@ export default class Turnstile {
 
     /**
      * Sets the Layers on the turnstile
-     * @param {Layer[]} layers
+     * @param {CanvasElement[]} layers
      * @param {string} term
+     * @param {Object} re
      */
-    setLayers(layers, term) {
+    setLayers(layers, term, re) {
         this._layers = Array.isArray(layers) ? layers : []
         this._searchTerm = term ||  null
+        this._re = re
     }
 
     /**
@@ -49,7 +52,7 @@ export default class Turnstile {
         }
 
         const l = this._layers.pop()
-        l.replace(this._searchTerm, rpl)
+        l.text = l.text.replace(this._re, rpl)
     }
 
     /**
@@ -60,46 +63,5 @@ export default class Turnstile {
         while(this._layers.length > 0) {
             this.replaceCurrentLayer(rpl)
         }
-    }
-}
-
-export class Layer {
-    constructor(layer) {
-        this._layer = layer
-    }
-    /**
-     * Replaces the text layer wherever str is found
-     * @param {string} str Search string
-     * @param {string} rpl Replacement string
-     */
-    replace(str, rpl) {
-        const t = this._layer.text
-        const re = new RegExp(str,'gi')
-        this._layer.text = this._layer.text.replace(re, rpl)
-    }
-
-    get raw() {
-        return this._layer
-    }
-}
-
-export class Override {
-    constructor(element, override) {
-        this._element = element
-        this._override = override
-    }
-    /**
-     * Replaces the text layer wherever str is found
-     * @param {string} str Search string
-     * @param {string} rpl Replacement string
-     */
-    replace(str, rpl) {
-        const t = this._override.value
-        const re = new RegExp(str,'gi')
-        this._override.value = this._override.value.replace(re, rpl)
-    }
-
-    get raw() {
-        return this._element
     }
 }

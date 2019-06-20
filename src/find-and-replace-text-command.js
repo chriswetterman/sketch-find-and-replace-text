@@ -89,7 +89,7 @@ export function onTextChanged(context) {
 export default function() {
   const options = {
     identifier: WEBVIEW_ID,
-    width: 420,
+    width: 436,
     height: 336,
     show: false,
     alwaysOnTop: true,
@@ -137,7 +137,7 @@ export default function() {
   /**
    *
    */
-  webContents.on(Events.kEventButtonPress, (eventType, findText, replaceText, isCaseSensitive, isWholeWord) => {
+  webContents.on(Events.kEventButtonPress, (eventType, findText, replaceText, isCaseSensitive, isWholeWord, isLayers) => {
     // Did they choose to cancel
     if (Events.kButtonPressCancel === eventType) {
       browserWindow.close()
@@ -180,12 +180,14 @@ export default function() {
     const sameTerm = ts.searchTerm === searchTerm
     if (!sameTerm || scanner.isDirty()) {
       try {
-        const layers = scanner.findTextLayers(searchArea, searchTerm, {
-          isCaseSensitive,
-          isWholeWord
+        const exp = isWholeWord ? `\\b${searchTerm}\\b` : searchTerm
+        const re = new RegExp(exp, isCaseSensitive ? 'g' : 'gi')
+        const layers = scanner.findTextLayers(searchArea, searchTerm, re, {
+          isLayers
         })
+
         UI.message(`Found ${layers.length} matching layer${layers.length === 1 ? '' : 's'}`)
-        ts.setLayers(layers, searchTerm)
+        ts.setLayers(layers, searchTerm, re)
       } catch (e) {
         console.log(e)
       }
@@ -198,7 +200,10 @@ export default function() {
         if (page && page !== doc.selectedPage) {
           doc.selectedPage = page
         }
-        doc.centerOnLayer(layer)
+        // Don't center when layers
+        if (!isLayers) {
+          doc.centerOnLayer(layer)
+        }
       } else {
         UI.message(`Text not found: ${searchTerm}`)
       }

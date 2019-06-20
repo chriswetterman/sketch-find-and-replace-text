@@ -49,12 +49,12 @@ p {
   background: rgba(255, 201, 67, 0.98);
 }
 
-.icon-caseSensitive, .icon-wholeWord {
+.icon-caseSensitive, .icon-wholeWord, .icon-layers {
   border: 1px solid #FFF;
   color: #C2C1C1;
 }
 
-.icon-caseSensitive.active, .icon-wholeWord.active {
+.icon-caseSensitive.active, .icon-wholeWord.active, .icon-layers.active {
   border: 1px solid #FB9F27;
   color: #262626;
 }
