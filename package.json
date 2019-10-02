@@ -29,7 +29,7 @@
     "resources/**/*.js"
   ],
   "dependencies": {
-    "sketch-module-web-view": "^3.0.1"
+    "sketch-module-web-view": "^3.2.1"
   },
   "author": "Chris Wetterman <chris.wetterman.web@me.com>",
   "repository": {
